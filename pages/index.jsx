@@ -27,7 +27,7 @@ export default function Home() {
         </div>
 
         <div className={styles.grid}>
-          <Link href="/tests/scroll-video">
+          <Link href="/examples/scroll-video">
             <a className={styles.card}>
               <h2>Scroll controlled video</h2>
               <p>Using react-scrollmagic</p>
