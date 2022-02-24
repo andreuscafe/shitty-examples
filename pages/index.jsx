@@ -20,7 +20,7 @@ export default function Home() {
 
   useEffect(() => {
     setCurrentExample({});
-  }, []);
+  }, [setCurrentExample]);
 
   return (
     <div className={styles.container}>

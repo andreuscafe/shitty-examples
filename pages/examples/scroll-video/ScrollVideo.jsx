@@ -16,7 +16,7 @@ export default function ScrollVideo() {
       title: "Scroll Controlled Video",
       url: "https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/scroll-video/ScrollVideo.jsx"
     });
-  }, []);
+  }, [setCurrentExample]);
 
   return (
     <div className={styles.wrapper}>
