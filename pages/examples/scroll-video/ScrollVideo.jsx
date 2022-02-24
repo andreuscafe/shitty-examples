@@ -29,13 +29,16 @@ export default function ScrollVideo() {
               <div className={styles.videoWrapper}>
                 {event.type} {progress.toFixed(2)}
                 <video
-                  src="/tucu2.webm"
+                  preload="metadata"
                   ref={videoRef}
                   onCanPlay={() => setLoaded(true)}
-                  style={{
-                    filter: `contrast(${progress}) sepia(0.8)`
-                  }}
-                ></video>
+                  // style={{
+                  //   filter: `contrast(${progress}) sepia(0.8)`
+                  // }}
+                >
+                  <source src="/videos/tucu.webm#t=0.001" type="video/webm" />
+                  <source src="/videos/tucu.mp4#t=0.001" type="video/mp4" />
+                </video>
               </div>
             );
           }}
