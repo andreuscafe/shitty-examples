@@ -33,7 +33,7 @@ export default function ScrollVideo() {
                   ref={videoRef}
                   onCanPlay={() => setLoaded(true)}
                   style={{
-                    filter: `contrast(${progress}) sepia(0.8)`
+                    filter: `contrast(${progress}) sepia(1)`
                   }}
                 >
                   <source src="/videos/tucu.webm#t=0.001" type="video/webm" />
