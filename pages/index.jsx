@@ -1,9 +1,17 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 import styles from "../styles/Home.module.scss";
+import { useAppContext } from "../context/AppContext";
 
 export default function Home() {
+  const { setCurrentExample } = useAppContext();
+
+  useEffect(() => {
+    setCurrentExample({});
+  });
+
   return (
     <div className={styles.container}>
       <Head>

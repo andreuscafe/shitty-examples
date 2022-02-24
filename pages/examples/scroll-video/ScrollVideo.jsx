@@ -1,19 +1,28 @@
 import styles from "./ScrollVideo.module.scss";
 import { Controller, Scene } from "react-scrollmagic";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { roundFrame } from "../../../utils";
+import { useAppContext } from "../../../context/AppContext";
 
 export default function ScrollVideo() {
+  const { setCurrentExample } = useAppContext();
   const [loaded, setLoaded] = useState(false);
 
   const videoRef = useRef(null);
   const videoWrapperRef = useRef(null);
 
+  useEffect(() => {
+    setCurrentExample({
+      title: "Scroll Controlled Video",
+      url: "https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/scroll-video/ScrollVideo.jsx"
+    });
+  });
+
   return (
     <div className={styles.wrapper}>
       <Controller globalSceneOptions={{ triggerHook: "onLeave" }}>
         <Scene pin>
-          <div className={styles.first}>Scroll controlled video</div>
+          <div className={styles.title}>Scroll controlled video</div>
         </Scene>
 
         <Scene pin duration="50%">
@@ -43,9 +52,8 @@ export default function ScrollVideo() {
             );
           }}
         </Scene>
-        <Scene pin>
-          <div className={styles.last}></div>
-        </Scene>
+
+        <div className={styles.spacer}></div>
       </Controller>
     </div>
   );
