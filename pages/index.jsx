@@ -5,12 +5,22 @@ import { useEffect } from "react";
 import styles from "../styles/Home.module.scss";
 import { useAppContext } from "../context/AppContext";
 
+const EXAMPLES = [
+  {
+    title: "Scroll controlled video",
+    description: "Using react-scrollmagic",
+    path: "/examples/scroll-video",
+    githubURL:
+      "https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/scroll-video/ScrollVideo.jsx"
+  }
+];
+
 export default function Home() {
   const { setCurrentExample } = useAppContext();
 
   useEffect(() => {
     setCurrentExample({});
-  });
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -35,12 +45,14 @@ export default function Home() {
         </div>
 
         <div className={styles.grid}>
-          <Link href="/examples/scroll-video">
-            <a className={styles.card}>
-              <h2>Scroll controlled video</h2>
-              <p>Using react-scrollmagic</p>
-            </a>
-          </Link>
+          {EXAMPLES.map((example, i) => (
+            <Link href={example.path} key={i}>
+              <a className={styles.card}>
+                <h2>{example.title}</h2>
+                <p>{example.description}</p>
+              </a>
+            </Link>
+          ))}
         </div>
       </main>
 
