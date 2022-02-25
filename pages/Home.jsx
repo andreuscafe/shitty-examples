@@ -12,6 +12,13 @@ const EXAMPLES = [
     githubURL:
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/scroll-video/ScrollVideo.jsx',
   },
+  {
+    title: 'The Forest',
+    description: '3D scene using react-three-fiber and Drei ScrollControls',
+    path: '/examples/the-forest',
+    githubURL:
+      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/the-forest/TheForest.jsx',
+  },
 ]
 
 export default function Home() {

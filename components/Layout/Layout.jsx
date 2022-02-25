@@ -24,7 +24,7 @@ export function Layout({ children }) {
   return (
     <div className={styles.layoutWrapper}>
       <Header />
-      {children}
+      <main>{children}</main>
       <Footer />
     </div>
   )

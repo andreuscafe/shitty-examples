@@ -1,0 +1,14 @@
+.wrapper {
+  height: 100%;
+}
+.title {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 7vw;
+  font-weight: bold;
+  pointer-events: none;
+}
