@@ -1,0 +1,56 @@
+.footer {
+  display: flex;
+  flex: 0;
+  padding: 2rem 0;
+  // border-top: 1px solid rgba(var(--foreground), 0.2);
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background-color: var(--foreground);
+    opacity: 0.2;
+    animation: grow 1s ease-out forwards;
+
+    @keyframes grow {
+      to {
+        width: 100%;
+        left: 0;
+      }
+    }
+  }
+
+  .linkWrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .twitterLink {
+      &:hover {
+        color: var(--blue);
+      }
+    }
+  }
+
+  .toggleColorModeButton {
+    background: transparent;
+    border: 0;
+    position: absolute;
+    top: 50%;
+    right: 1em;
+    transform: translateY(-50%);
+    cursor: pointer;
+
+    svg {
+      width: 30px;
+      color: var(--foreground);
+    }
+  }
+}
