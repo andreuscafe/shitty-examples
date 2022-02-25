@@ -36,7 +36,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <wrapper className={styles.wrapper}>
         <h1 className={styles.title}>Shitty examples</h1>
 
         <div className={styles.description}>
@@ -60,7 +60,7 @@ export default function Home() {
             </Link>
           ))}
         </div>
-      </main>
+      </wrapper>
     </>
   )
 }

@@ -1,9 +1,9 @@
-import Link from "next/link";
-import styles from "./Header.module.scss";
-import { useAppContext } from "../../context/AppContext";
+import Link from 'next/link'
+import styles from './Header.module.scss'
+import { useAppContext } from '../../context/AppContext'
 
 export const Header = () => {
-  const { currentExample } = useAppContext();
+  const { currentExample } = useAppContext()
 
   return (
     <header className={styles.header}>
@@ -12,10 +12,10 @@ export const Header = () => {
       </Link>
 
       {currentExample.title && (
-        <Link href="https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/scroll-video/ScrollVideo.jsx">
+        <Link href={currentExample.url}>
           <a target="_blank">Talk is cheap</a>
         </Link>
       )}
     </header>
-  );
-};
+  )
+}
