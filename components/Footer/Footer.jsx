@@ -1,22 +1,9 @@
 import Link from 'next/link'
-import { useCallback } from 'react'
 import styles from './Footer.module.scss'
-import { setCSSVariable } from '../../utils'
+import { useStore } from '../../store/store'
 
 export const Footer = () => {
-  const toggleColor = useCallback(() => {
-    const colorPref = localStorage.getItem('color')
-
-    if (colorPref && colorPref === 'white') {
-      setCSSVariable('background', 'var(--black)')
-      setCSSVariable('foreground', 'var(--white)')
-      localStorage.setItem('color', 'dark')
-    } else {
-      setCSSVariable('background', 'var(--white)')
-      setCSSVariable('foreground', 'var(--black)')
-      localStorage.setItem('color', 'white')
-    }
-  }, [])
+  const toggleColorPreference = useStore((state) => state.toggleColorPreference)
 
   return (
     <footer className={styles.footer}>
@@ -32,7 +19,10 @@ export const Footer = () => {
         </Link>
       </div>
 
-      <button className={styles.toggleColorModeButton} onClick={toggleColor}>
+      <button
+        className={styles.toggleColorModeButton}
+        onClick={toggleColorPreference}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1792 1792"

@@ -1,5 +1,5 @@
-import { Canvas } from '@react-three/fiber'
-import { Suspense, useEffect, useMemo, useRef } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { Suspense, useEffect, useMemo } from 'react'
 import {
   useGLTF,
   ScrollControls,
@@ -7,85 +7,15 @@ import {
   Environment,
   Merged,
   Text,
+  useScroll,
 } from '@react-three/drei'
 import { Mesh } from 'three'
 import Head from 'next/head'
 import useAppContext from '../../../context/AppContext'
-
-function Car(props) {
-  const group = useRef()
-  const { nodes, materials } = useGLTF('/models/truck.gltf')
-  return (
-    <group ref={group} {...props} dispose={null}>
-      <group rotation={[Math.PI, 0, Math.PI]}>
-        <mesh
-          geometry={nodes.Mesh_body002.geometry}
-          material={materials.plastic}
-        />
-        <mesh
-          geometry={nodes.Mesh_body002_1.geometry}
-          material={materials.paintGreen}
-        />
-        <mesh
-          geometry={nodes.Mesh_body002_2.geometry}
-          material={materials.lightFront}
-        />
-        <mesh
-          geometry={nodes.Mesh_body002_3.geometry}
-          material={materials._defaultMat}
-        />
-        <mesh
-          geometry={nodes.Mesh_body002_4.geometry}
-          material={materials.window}
-        />
-        <mesh
-          geometry={nodes.Mesh_body002_5.geometry}
-          material={materials.lightBack}
-        />
-        <group position={[-0.35, 0.3, 0.76]} scale={[-1, 1, 1]}>
-          <mesh
-            geometry={nodes.Mesh_wheel_frontLeft002.geometry}
-            material={nodes.Mesh_wheel_frontLeft002.material}
-          />
-          <mesh
-            geometry={nodes.Mesh_wheel_frontLeft002_1.geometry}
-            material={nodes.Mesh_wheel_frontLeft002_1.material}
-          />
-        </group>
-        <group position={[0.35, 0.3, 0.76]}>
-          <mesh
-            geometry={nodes.Mesh_wheel_frontLeft002.geometry}
-            material={nodes.Mesh_wheel_frontLeft002.material}
-          />
-          <mesh
-            geometry={nodes.Mesh_wheel_frontLeft002_1.geometry}
-            material={nodes.Mesh_wheel_frontLeft002_1.material}
-          />
-        </group>
-        <group position={[-0.35, 0.3, -0.86]} scale={[-1, 1, 1]}>
-          <mesh
-            geometry={nodes.Mesh_wheel_frontLeft002.geometry}
-            material={nodes.Mesh_wheel_frontLeft002.material}
-          />
-          <mesh
-            geometry={nodes.Mesh_wheel_frontLeft002_1.geometry}
-            material={nodes.Mesh_wheel_frontLeft002_1.material}
-          />
-        </group>
-        <group position={[0.35, 0.3, -0.86]}>
-          <mesh
-            geometry={nodes.Mesh_wheel_frontLeft002.geometry}
-            material={nodes.Mesh_wheel_frontLeft002.material}
-          />
-          <mesh
-            geometry={nodes.Mesh_wheel_frontLeft002_1.geometry}
-            material={nodes.Mesh_wheel_frontLeft002_1.material}
-          />
-        </group>
-      </group>
-    </group>
-  )
-}
+import Truck from '../../../components/Models/Truck'
+import useMediaQuery from '../../../hooks/useMediaquery'
+import { lerp } from 'three/src/math/MathUtils'
+import { useStore } from '../../../store/store'
 
 const MergedTrees = () => {
   const { nodes, materials } = useGLTF('/models/tree.gltf')
@@ -95,28 +25,27 @@ const MergedTrees = () => {
   )
 
   return (
-    <Merged meshes={[spruceMesh]}>
+    <Merged meshes={[spruceMesh]} limit={2000}>
       {(Spruce) => (
         <>
-          {Array(20)
+          {Array(2000)
             .fill(null)
             .map((e, i) => {
-              const x = (Math.random() - 1.2) * 10
-              const y = (Math.random() - 0.5) * 0
-              const z = (Math.random() - 0.5) * 15
-              const scale = (Math.random() + 0.7) * 0.08
+              const x = Math.round((Math.random() - 0.08) * 100)
+              const y = Math.round((Math.random() - 0.5) * 0)
+              const z = Math.round((Math.random() - 0.8) * 150)
+              const scale = (Math.random() + 0.6) * 0.1
 
-              return <Spruce key={i} position={[x, y, z]} scale={scale} />
-            })}
-          {Array(200)
-            .fill(null)
-            .map((e, i) => {
-              const x = (Math.random() + 0.08) * 30
-              const y = (Math.random() - 0.5) * 0
-              const z = (Math.random() - 0.5) * 25
-              const scale = (Math.random() + 0.7) * 0.08
-
-              return <Spruce key={i} position={[x, y, z]} scale={scale} />
+              return (
+                <>
+                  <Spruce
+                    key={i}
+                    position={[x, y, z]}
+                    // rotation={[0, z, 0]}
+                    scale={[scale, scale * 1.2, scale]}
+                  />
+                </>
+              )
             })}
         </>
       )}
@@ -124,8 +53,25 @@ const MergedTrees = () => {
   )
 }
 
+const Rig = () => {
+  const data = useScroll()
+  const { camera } = useThree()
+
+  useFrame(() => {
+    camera.position.y = lerp(20, 6, data.offset)
+    camera.position.z = lerp(11, 10, data.offset)
+    camera.rotation.set(lerp(-Math.PI / 3, 0.1, data.offset), 0, 0)
+    camera.fov = lerp(30, 40, data.offset)
+    camera.updateProjectionMatrix()
+  })
+
+  return <></>
+}
+
 export default function TheForest() {
   const { setCurrentExample } = useAppContext()
+  const isMobile = useMediaQuery('(max-width: 768px)')
+  const { colorPreference } = useStore()
 
   useEffect(() => {
     setCurrentExample({
@@ -145,12 +91,19 @@ export default function TheForest() {
 
       <Canvas
         style={{ position: 'fixed' }}
-        camera={{ position: [0, 10, 10], fov: 40 }}
+        camera={{ position: [0, 15, 15], fov: 70 }}
         frameloop="demand"
       >
         <Suspense fallback={null}>
+          <fog
+            attach="fog"
+            color={colorPreference == 'light' ? '#f9f3ea' : '#707070'}
+            near={10}
+            far={100}
+          />
+
           <ScrollControls
-            pages={2} // Each page takes 100% of the height of the canvas
+            pages={isMobile ? 4 : 2} // Each page takes 100% of the height of the canvas
             distance={1} // A factor that increases scroll bar travel (default: 1)
             damping={4} // Friction, higher is faster (default: 4)
             horizontal
@@ -159,14 +112,10 @@ export default function TheForest() {
 
             <Scroll>
               <MergedTrees />
-              <Car
-                position={[
-                  (Math.random() - 0.3) * 5,
-                  -0.1,
-                  (Math.random() - 0.3) * 5,
-                ]}
+              <Truck
+                position={[2, -0.1, (Math.random() - 0.5) * 5]}
                 rotation={[0, Math.PI / Math.random(), 0]}
-                scale={0.8}
+                scale={0.7}
               />
               <Text
                 rotation={[-Math.PI / 2, 0, Math.PI / 2]}
@@ -176,6 +125,24 @@ export default function TheForest() {
               >
                 FOREST
               </Text>
+              <Text
+                position={[isMobile ? 40 : 50, 20, -50]}
+                fontSize={2.5}
+                color="#3b4d4c"
+                scale={isMobile ? 1.6 : 5}
+              >
+                SILENCE
+              </Text>
+
+              {/* <Plane
+                args={[300, 300, 2, 2]}
+                rotation={[-Math.PI / 2, 0, 0]}
+                position={[0, -0.001, 80]}
+              >
+                <meshBasicMaterial attach="material" color="#faebd7" />
+              </Plane> */}
+
+              <Rig />
             </Scroll>
           </ScrollControls>
         </Suspense>
@@ -185,4 +152,4 @@ export default function TheForest() {
 }
 
 useGLTF.preload('/models/tree.gltf')
-useGLTF.preload('/models/truck.gltf')
+// useGLTF.preload('/models/truck.gltf')
