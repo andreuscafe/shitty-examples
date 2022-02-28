@@ -21,7 +21,7 @@ export default function ScrollVideo() {
         <title>Tulips | Shitty examples by @andreuscafe</title>
       </Head>
       <div className={styles.wrapper}>
-        <motion.svg
+        <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 337 673"
           fill="none"
@@ -225,7 +225,7 @@ export default function ScrollVideo() {
               duration: 2.4,
             }}
           />
-        </motion.svg>
+        </svg>
       </div>
     </>
   )
