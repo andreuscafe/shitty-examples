@@ -13,7 +13,7 @@ import { Mesh } from 'three'
 import Head from 'next/head'
 import useAppContext from '../../../context/AppContext'
 import Truck from '../../../components/Models/Truck'
-import useMediaQuery from '../../../hooks/useMediaquery'
+import useMediaQuery from '../../../hooks/useMediaQuery'
 import { lerp } from 'three/src/math/MathUtils'
 import { useStore } from '../../../store/store'
 
