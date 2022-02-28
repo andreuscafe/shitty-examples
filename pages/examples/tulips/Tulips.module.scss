@@ -1,0 +1,11 @@
+.wrapper {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    max-height: 70%;
+  }
+}
