@@ -19,13 +19,13 @@ const EXAMPLES = [
     githubURL:
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/the-forest/TheForest.jsx',
   },
-  {
-    title: 'Tulipmaniacs',
-    description: 'Tulip animations examples',
-    path: '/examples/tulips',
-    githubURL:
-      'https://github.com/andreuscafe/shitty-examples/blob/tulip/pages/examples/tulips/Tulips.jsx',
-  },
+  // {
+  //   title: 'Tulip animations',
+  //   description: 'SVG animations using framer-motion',
+  //   path: '/examples/tulips',
+  //   githubURL:
+  //     'https://github.com/andreuscafe/shitty-examples/blob/tulip/pages/examples/tulips/Tulips.jsx',
+  // },
 ]
 
 export default function Home() {
