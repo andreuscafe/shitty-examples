@@ -9,7 +9,12 @@ import {
   Text,
   useScroll,
 } from '@react-three/drei'
-import { Mesh } from 'three'
+import {
+  CircleBufferGeometry,
+  InstancedMesh,
+  Mesh,
+  MeshBasicMaterial,
+} from 'three'
 import Head from 'next/head'
 import useAppContext from '../../../context/AppContext'
 import Truck from '../../../components/Models/Truck'
@@ -19,34 +24,63 @@ import { useStore } from '../../../store/store'
 
 const MergedTrees = () => {
   const { nodes, materials } = useGLTF('/models/tree.gltf')
+
+  const TREES = useMemo(() => {
+    const trees = []
+
+    while (trees.length < 3000) {
+      const x = Math.round((Math.random() - 0.08) * 100)
+      const z = Math.round((Math.random() - 0.8) * 150)
+      const scale = (Math.random() + 0.6) * 0.1
+
+      if (!trees.some((e) => e.x == x && e.z == z)) {
+        trees.push({ x, z, scale })
+      }
+    }
+
+    console.log(trees.length)
+
+    return trees
+  }, [])
+
   const spruceMesh = useMemo(
     () => new Mesh(nodes['tree-spruce'].geometry, materials.color_main),
     [nodes, materials]
   )
 
-  return (
-    <Merged meshes={[spruceMesh]} limit={2000}>
-      {(Spruce) => (
-        <>
-          {Array(2000)
-            .fill(null)
-            .map((e, i) => {
-              const x = Math.round((Math.random() - 0.08) * 100)
-              const y = Math.round((Math.random() - 0.5) * 0)
-              const z = Math.round((Math.random() - 0.8) * 150)
-              const scale = (Math.random() + 0.6) * 0.1
+  const circleMesh = useMemo(() => {
+    const geo = new CircleBufferGeometry(1, 16)
 
+    const mat = new MeshBasicMaterial({
+      color: 0x000000,
+      transparent: true,
+      opacity: 0.2,
+    })
+
+    return new InstancedMesh(geo, mat, 2000)
+  }, [])
+
+  return (
+    <Merged meshes={[spruceMesh, circleMesh]} limit={2000}>
+      {(Spruce, Shadow) => (
+        <>
+          {TREES.map((e, i) => {
+            if (e)
               return (
                 <>
                   <Spruce
                     key={i}
-                    position={[x, y, z]}
-                    // rotation={[0, z, 0]}
-                    scale={[scale, scale * 1.2, scale]}
+                    position={[e.x, 0, e.z]}
+                    scale={[e.scale, e.scale * 1.2, e.scale]}
+                  />
+                  <Shadow
+                    scale={e.scale * 4}
+                    position={[e.x, e.scale * 0.1, e.z]}
+                    rotation={[-Math.PI / 2, 0, 0]}
                   />
                 </>
               )
-            })}
+          })}
         </>
       )}
     </Merged>
@@ -119,7 +153,7 @@ export default function TheForest() {
               />
               <Text
                 rotation={[-Math.PI / 2, 0, Math.PI / 2]}
-                position={[0, 0, -1]}
+                position={[0, -0.01, -1]}
                 fontSize={2.5}
                 color="#3b4d4c"
               >
