@@ -29,16 +29,14 @@ const MergedTrees = () => {
     const trees = []
 
     while (trees.length < 3000) {
-      const x = Math.round((Math.random() - 0.08) * 100)
-      const z = Math.round((Math.random() - 0.8) * 150)
+      const x = Math.round((Math.random() - 0.1) * 120)
+      const z = Math.round((Math.random() - 0.8) * 120)
       const scale = (Math.random() + 0.6) * 0.1
 
       if (!trees.some((e) => e.x == x && e.z == z)) {
         trees.push({ x, z, scale })
       }
     }
-
-    console.log(trees.length)
 
     return trees
   }, [])
@@ -62,27 +60,20 @@ const MergedTrees = () => {
 
   return (
     <Merged meshes={[spruceMesh, circleMesh]} limit={2000}>
-      {(Spruce, Shadow) => (
-        <>
-          {TREES.map((e, i) => {
-            if (e)
-              return (
-                <>
-                  <Spruce
-                    key={i}
-                    position={[e.x, 0, e.z]}
-                    scale={[e.scale, e.scale * 1.2, e.scale]}
-                  />
-                  <Shadow
-                    scale={e.scale * 4}
-                    position={[e.x, e.scale * 0.1, e.z]}
-                    rotation={[-Math.PI / 2, 0, 0]}
-                  />
-                </>
-              )
-          })}
-        </>
-      )}
+      {(Spruce, Shadow) =>
+        TREES.map((e, i) => {
+          return (
+            <group key={i} position={[e.x, 0, e.z]}>
+              <Spruce scale={[e.scale, e.scale * 1.2, e.scale]} />
+              <Shadow
+                scale={e.scale * 4}
+                position-y={e.scale * 0.1}
+                rotation-x={-Math.PI / 2}
+              />
+            </group>
+          )
+        })
+      }
     </Merged>
   )
 }
@@ -133,7 +124,7 @@ export default function TheForest() {
             attach="fog"
             color={colorPreference == 'light' ? '#f9f3ea' : '#707070'}
             near={10}
-            far={100}
+            far={80}
           />
 
           <ScrollControls
