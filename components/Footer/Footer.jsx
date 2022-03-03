@@ -20,7 +20,7 @@ export const Footer = () => {
       </div>
 
       <button
-        name="toggle-color"
+        aria-label="Toggle color"
         className={styles.toggleColorModeButton}
         onClick={toggleColorPreference}
       >
