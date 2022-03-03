@@ -15,9 +15,11 @@ export function Layout({ children }) {
       if (colorPreference === 'dark') {
         setCSSVariable('background', 'var(--black)')
         setCSSVariable('foreground', 'var(--white)')
+        setCSSVariable('accent', 'var(--light-green)')
       } else if (colorPreference === 'light') {
         setCSSVariable('background', 'var(--white)')
         setCSSVariable('foreground', 'var(--black)')
+        setCSSVariable('accent', 'var(--dark-green)')
       }
     }
   }, [colorPreference])

@@ -1,12 +1,12 @@
 :root {
-  --blue: #218dc3;
-  --blue: #4fb097;
+  --light-green: #4fb097;
+  --dark-green: #00795a;
   --white: antiquewhite;
   --black: #252525;
 
   --foreground: var(--black);
   --background: var(--white);
-  --accent: var(--blue);
+  --accent: var(--dark-green);
 }
 
 html,

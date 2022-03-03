@@ -20,6 +20,7 @@ export const Footer = () => {
       </div>
 
       <button
+        name="toggle-color"
         className={styles.toggleColorModeButton}
         onClick={toggleColorPreference}
       >
