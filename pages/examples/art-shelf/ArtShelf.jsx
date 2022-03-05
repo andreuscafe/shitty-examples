@@ -1,6 +1,6 @@
-import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber'
+import { Canvas, useLoader, useThree } from '@react-three/fiber'
 import React, { Suspense, useEffect, useRef } from 'react'
-import { ScrollControls, Scroll, SpotLight, useScroll } from '@react-three/drei'
+import { ScrollControls, Scroll, SpotLight } from '@react-three/drei'
 import Head from 'next/head'
 import useAppContext from '../../../context/AppContext'
 import useMediaQuery from '../../../hooks/useMediaQuery'
