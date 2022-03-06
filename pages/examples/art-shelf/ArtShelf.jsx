@@ -1,13 +1,24 @@
-import { Canvas, useLoader, useThree } from '@react-three/fiber'
+import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber'
 import React, { Suspense, useEffect, useRef } from 'react'
-import { ScrollControls, Scroll, SpotLight } from '@react-three/drei'
+import styles from './ArtShelf.module.scss'
+import {
+  ScrollControls,
+  Scroll,
+  SpotLight,
+  OrbitControls,
+} from '@react-three/drei'
 import Head from 'next/head'
 import useAppContext from '../../../context/AppContext'
 import useMediaQuery from '../../../hooks/useMediaQuery'
 import { TextureLoader } from 'three'
 import { EffectComposer, Noise } from '@react-three/postprocessing'
+import { lerp } from 'three/src/math/MathUtils'
 
 const ART_PIECES = [
+  {
+    title: 'Paisaje',
+    imgPath: '/images/artshelf/paisaje.jpg',
+  },
   {
     title: 'Zorrito',
     imgPath: '/images/artshelf/zorrito.jpg',
@@ -65,17 +76,25 @@ const Shelf = (props) => {
 
 // eslint-disable-next-line react/display-name
 const ImageTexture = React.forwardRef((props, ref) => {
-  const texture = useLoader(TextureLoader, props.url)
+  const { scale, url } = props
+  const texture = useLoader(TextureLoader, url)
+  const { width, height } = texture.source.data
+
   return (
-    <mesh {...props} ref={ref}>
-      <planeBufferGeometry attach="geometry" args={[1, 1, 200, 200]} />
-      <meshStandardMaterial
-        attach="material"
-        map={texture}
-        roughness={1}
-        metalness={0}
-      />
-    </mesh>
+    <group>
+      <mesh ref={ref} scale={[scale, scale, 0.2]} castShadow>
+        <boxBufferGeometry
+          attach="geometry"
+          args={[width / 1000, height / 1000, 1, 1]}
+        />
+        <meshStandardMaterial
+          attach="material"
+          map={texture}
+          roughness={1}
+          metalness={0}
+        />
+      </mesh>
+    </group>
   )
 })
 
@@ -86,13 +105,12 @@ const ArtPiece = (props) => {
   const imageRef = useRef(null)
   const lightRef = useRef(null)
 
-  const shelfPosition = isMobile
-    ? [0, -h * index - w / 2.7, 0]
-    : [w * index, -h * 0.35, 0]
-  const imagePosition = isMobile ? [0, -h * index, 0] : [w * index, -h * 0, 0]
-  const lightPosition = isMobile
-    ? [-w / 3, -h * index + 2, 4]
-    : [w * index, -h * -1, 3]
+  // const shelfPosition = isMobile
+  //   ? [0, -h * index - w / 2.7, 0]
+  //   : [w * index, -h * 0.35, 0]
+
+  const artPosition = isMobile ? [0, -h * index, 0] : [w * index, -h * 0, 0]
+  const lightPosition = isMobile ? [-0.5, 1.5, 3] : [0, 1.3, 3.5]
 
   useEffect(() => {
     if (imageRef.current) lightRef.current.target = imageRef.current
@@ -100,12 +118,12 @@ const ArtPiece = (props) => {
 
   return (
     <>
-      <Shelf
+      {/* <Shelf
         position={shelfPosition}
         scale={isMobile ? [w * 0.8, 1, 1] : [h * 0.8, 1, 1]}
         castShadow
         receiveShadow
-      />
+      /> */}
       {/* <Image
         ref={imageRef}
         position={imagePosition}
@@ -115,29 +133,30 @@ const ArtPiece = (props) => {
         alt={title}
         castShadow
       /> */}
-      <ImageTexture
-        ref={imageRef}
-        position={imagePosition}
-        scale={isMobile ? w * 0.7 : h * 0.6}
-        rotation={[0, 0, 0]}
-        url={image}
-        alt={title}
-        castShadow={true}
-      />
-      <SpotLight
-        ref={lightRef}
-        position={lightPosition}
-        target={imageRef.current}
-        penumbra={1}
-        radiusTop={0.1}
-        angle={isMobile ? 0.4 : 0.5}
-        attenuation={isMobile ? 3 : 6}
-        anglePower={8}
-        intensity={isMobile ? 1 : 1.6}
-        distance={isMobile ? 20 : 20}
-        radiusBottom={isMobile ? 13 : 7}
-        castShadow
-      />
+      <group position={artPosition}>
+        <ImageTexture
+          ref={imageRef}
+          // position={imagePosition}
+          scale={isMobile ? w * 0.7 : h * 0.6}
+          url={image}
+          title={title}
+        />
+        <SpotLight
+          ref={lightRef}
+          position={lightPosition}
+          target={imageRef.current}
+          penumbra={1}
+          radiusTop={0.1}
+          angle={isMobile ? 0.4 : 0.6}
+          attenuation={isMobile ? 1.5 : 2}
+          anglePower={isMobile ? 14 : 5}
+          intensity={isMobile ? 1 : 1}
+          distance={isMobile ? 10 : 10}
+          radiusBottom={isMobile ? 13 : 8}
+          castShadow
+          color={0xffffff}
+        />
+      </group>
     </>
   )
 }
@@ -147,9 +166,25 @@ const Scene = () => {
   // const { colorPreference } = useStore()
   const { width: w, height: h } = useThree((state) => state.viewport)
   // const canvasSize = useThree((state) => state.size)
+  const cameraRots = useRef({ x: 0, y: 0 })
+
+  useFrame((t) => {
+    if (!isMobile) {
+      const x = lerp(cameraRots.current.x, t.mouse.y / 30, 0.05)
+      const y = lerp(cameraRots.current.y, -t.mouse.x / 5, 0.05)
+
+      t.camera.rotation.x = x
+      t.camera.rotation.y = y
+
+      cameraRots.current.x = x
+      cameraRots.current.y = y
+    }
+  })
 
   return (
     <Suspense fallback={null}>
+      {/* <OrbitControls /> */}
+
       <ScrollControls
         pages={ART_PIECES.length} // Each page takes 100% of the height of the canvas
         distance={0.5} // A factor that increases scroll bar travel (default: 1)
@@ -168,9 +203,20 @@ const Scene = () => {
           ))}
 
           {/* <Rig /> */}
-          <ambientLight intensity={0.3} />
+          <ambientLight intensity={0.5} color={0xffccaa} />
         </Scroll>
-        <mesh position={[0, 0, -0.5]} receiveShadow>
+
+        <Scroll html>
+          <div className={styles.wrapper}>
+            {ART_PIECES.map((piece, i) => (
+              <section className={styles.item} key={i}>
+                <h1 className={styles.title}>{piece.title}</h1>
+              </section>
+            ))}
+          </div>
+        </Scroll>
+
+        <mesh position={[0, 0, -0.1]} receiveShadow>
           <planeGeometry args={[w * 3, h * 3]} />
           <meshStandardMaterial color={0xffffff} />
         </mesh>
@@ -214,7 +260,7 @@ export default function ArtShelf() {
         <Scene />
 
         <EffectComposer>
-          <Noise opacity={0.15} />
+          <Noise opacity={0.2} />
           {/* <Vignette eskil={false} offset={0.1} darkness={0.5} /> */}
         </EffectComposer>
       </Canvas>
