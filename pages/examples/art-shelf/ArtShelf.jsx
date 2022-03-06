@@ -5,7 +5,7 @@ import {
   ScrollControls,
   Scroll,
   SpotLight,
-  OrbitControls,
+  // OrbitControls,
 } from '@react-three/drei'
 import Head from 'next/head'
 import useAppContext from '../../../context/AppContext'
@@ -65,14 +65,14 @@ const ART_PIECES = [
 //   return <></>
 // }
 
-const Shelf = (props) => {
-  return (
-    <mesh {...props}>
-      <meshPhysicalMaterial color={0xffffff} />
-      <boxGeometry args={[1, 0.2, 1]} />
-    </mesh>
-  )
-}
+// const Shelf = (props) => {
+//   return (
+//     <mesh {...props}>
+//       <meshPhysicalMaterial color={0xffffff} />
+//       <boxGeometry args={[1, 0.2, 1]} />
+//     </mesh>
+//   )
+// }
 
 // eslint-disable-next-line react/display-name
 const ImageTexture = React.forwardRef((props, ref) => {
