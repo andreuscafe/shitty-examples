@@ -10,20 +10,20 @@ import IdleTulip from '../../../components/tulips/IdleTulip'
 
 const TULIPS = [
   {
-    heading: 'Borning with bounce',
-    component: <BorningTulipBounce />,
-  },
-  {
     heading: 'Borning',
     component: <BorningTulip />,
   },
   {
-    heading: 'Idle',
-    component: <IdleTulip />,
+    heading: 'Borning with bounce',
+    component: <BorningTulipBounce />,
   },
+  // {
+  //   heading: 'Idle',
+  //   component: <IdleTulip />,
+  // },
 ]
 
-export default function ScrollVideo() {
+export default function Tulips() {
   const { setCurrentExample } = useAppContext()
   const { index, setIndex, item } = useSelect(TULIPS, 0)
 
@@ -46,6 +46,7 @@ export default function ScrollVideo() {
               key={listItemIndex}
               style={{
                 background: index === listItemIndex ? 'dodgerblue' : 'inherit',
+                color: index === listItemIndex ? '#FFF' : 'inherit',
               }}
               onClick={() => setIndex(listItemIndex)}
             >
