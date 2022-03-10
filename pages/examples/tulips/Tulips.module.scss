@@ -5,9 +5,18 @@
   align-items: center;
   justify-content: center;
 
+  .tulipsList {
+    position: absolute;
+    bottom: 1em;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+
   svg {
     width: 100%;
     max-height: 70%;
     max-width: 300px;
+    overflow: visible;
   }
 }
