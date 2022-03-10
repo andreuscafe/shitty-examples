@@ -1,10 +1,11 @@
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber'
-import React, { Suspense, useEffect, useRef } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
 import styles from './ArtShelf.module.scss'
 import {
   ScrollControls,
   Scroll,
   SpotLight,
+  Html,
   // OrbitControls,
 } from '@react-three/drei'
 import Head from 'next/head'
@@ -45,44 +46,22 @@ const ART_PIECES = [
   },
 ]
 
-// const Rig = () => {
-//   const data = useScroll()
-//   const { camera } = useThree()
-//   const lastScroll = useRef(0)
-
-//   useFrame(() => {
-//     // const isForward = lastScroll.current < data.offset
-
-//     // camera.position.y = lerp(20, 6, data.offset)
-//     // camera.position.z = lerp(11, 10, data.offset)
-//     // camera.rotation.set(0, data.delta * -200, 0)
-//     // camera.fov = lerp(30, 40, data.offset)
-//     // camera.updateProjectionMatrix()
-//     // console.log(data.scroll.current)
-//     // lastScroll.current = data.offset
-//   })
-
-//   return <></>
-// }
-
-// const Shelf = (props) => {
-//   return (
-//     <mesh {...props}>
-//       <meshPhysicalMaterial color={0xffffff} />
-//       <boxGeometry args={[1, 0.2, 1]} />
-//     </mesh>
-//   )
-// }
-
 // eslint-disable-next-line react/display-name
 const ImageTexture = React.forwardRef((props, ref) => {
   const { scale, url } = props
   const texture = useLoader(TextureLoader, url)
+  const [hover, setHover] = useState(false)
   const { width, height } = texture.source.data
 
   return (
     <group>
-      <mesh ref={ref} scale={[scale, scale, 0.2]} castShadow>
+      <mesh
+        ref={ref}
+        scale={[scale, scale, 0.2]}
+        castShadow
+        onPointerEnter={() => setHover(true)}
+        onPointerLeave={() => setHover(false)}
+      >
         <boxBufferGeometry
           attach="geometry"
           args={[width / 1000, height / 1000, 1, 1]}
@@ -91,7 +70,7 @@ const ImageTexture = React.forwardRef((props, ref) => {
           attach="material"
           map={texture}
           roughness={1}
-          metalness={0}
+          metalness={hover ? 0.1 : 0}
         />
       </mesh>
     </group>
@@ -109,7 +88,7 @@ const ArtPiece = (props) => {
   //   ? [0, -h * index - w / 2.7, 0]
   //   : [w * index, -h * 0.35, 0]
 
-  const artPosition = isMobile ? [0, -h * index, 0] : [w * index, -h * 0, 0]
+  const artPosition = isMobile ? [0, -h * index, 0] : [w * index, 0, 0]
   const lightPosition = isMobile ? [-0.5, 1.5, 3] : [0, 1.3, 3.5]
 
   useEffect(() => {
@@ -171,7 +150,7 @@ const Scene = () => {
   useFrame((t) => {
     if (!isMobile) {
       const x = lerp(cameraRots.current.x, t.mouse.y / 30, 0.05)
-      const y = lerp(cameraRots.current.y, -t.mouse.x / 5, 0.05)
+      const y = lerp(cameraRots.current.y, -t.mouse.x / 30, 0.05)
 
       t.camera.rotation.x = x
       t.camera.rotation.y = y
@@ -182,7 +161,13 @@ const Scene = () => {
   })
 
   return (
-    <Suspense fallback={null}>
+    <Suspense
+      fallback={
+        <Html style={{ fontSize: '6vw', whiteSpace: 'nowrap' }} center>
+          Wait a sec...
+        </Html>
+      }
+    >
       {/* <OrbitControls /> */}
 
       <ScrollControls
@@ -210,7 +195,9 @@ const Scene = () => {
           <div className={styles.wrapper}>
             {ART_PIECES.map((piece, i) => (
               <section className={styles.item} key={i}>
-                <h1 className={styles.title}>{piece.title}</h1>
+                <h1 id={piece.title} className={styles.title}>
+                  {piece.title}
+                </h1>
               </section>
             ))}
           </div>
@@ -241,7 +228,11 @@ export default function ArtShelf() {
   return (
     <>
       <Head>
-        <title>Art Shelf | Shitty examples by @andreuscafe</title>
+        <title>Art gallery | Shitty examples by @andreuscafe</title>
+        <meta
+          name="description"
+          content="3D Art gallery demo using react-three-fiber."
+        />
       </Head>
 
       <Canvas

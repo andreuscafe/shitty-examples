@@ -27,8 +27,8 @@ const EXAMPLES = [
   //     'https://github.com/andreuscafe/shitty-examples/blob/tulip/pages/examples/tulips/Tulips.jsx',
   // },
   {
-    title: 'Art Shelf',
-    description: '3D Art shelf using R3F',
+    title: 'Art gallery',
+    description: '3D Art gallery using R3F',
     path: '/examples/art-shelf',
     githubURL:
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/art-shelf/ArtShelf.jsx',
