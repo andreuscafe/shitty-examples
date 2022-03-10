@@ -6,7 +6,7 @@ import Head from 'next/head'
 import { useSelect } from 'rooks'
 import BorningTulip from '../../../components/tulips/BorningTulip'
 import BorningTulipBounce from '../../../components/tulips/BorningTulipBounce'
-import IdleTulip from '../../../components/tulips/IdleTulip'
+// import IdleTulip from '../../../components/tulips/IdleTulip'
 
 const TULIPS = [
   {
