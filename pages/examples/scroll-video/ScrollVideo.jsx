@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import { roundFrame } from '../../../utils'
 import { useAppContext } from '../../../context/AppContext'
 import Head from 'next/head'
+import { useRaf } from 'rooks'
 
 export default function ScrollVideo() {
   const { setCurrentExample } = useAppContext()
@@ -18,6 +19,21 @@ export default function ScrollVideo() {
       url: 'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/scroll-video/ScrollVideo.jsx',
     })
   }, [setCurrentExample])
+
+  const videoAnimation = useRef({
+    acceleration: 0.001,
+    scrollPosition: 0,
+    delay: 0,
+  })
+
+  useRaf(() => {
+    videoAnimation.current.delay +=
+      (videoAnimation.current.scrollPosition - videoAnimation.current.delay) *
+      videoAnimation.current.acceleration
+
+    // console.log(videoAnimation.current.delay)
+    videoRef.current.currentTime = roundFrame(videoAnimation.current.delay)
+  }, true)
 
   return (
     <>
@@ -34,13 +50,10 @@ export default function ScrollVideo() {
 
           <Scene pin duration="50%">
             {(progress, event) => {
-              let currentVideo = 0
-
               if (loaded && videoRef.current) {
-                currentVideo = roundFrame(
+                videoAnimation.current.scrollPosition = roundFrame(
                   progress * videoRef?.current?.duration
                 )
-                videoRef.current.currentTime = currentVideo
               }
 
               return (
