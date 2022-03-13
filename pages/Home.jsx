@@ -33,6 +33,13 @@ const EXAMPLES = [
     githubURL:
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/art-shelf/ArtShelf.jsx',
   },
+  {
+    title: 'Pipes Game',
+    description: '3D pipes game using R3F',
+    path: '/examples/pipes-game',
+    githubURL:
+      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/pipes-game/PipesGame.jsx',
+  },
 ]
 
 export default function Home() {

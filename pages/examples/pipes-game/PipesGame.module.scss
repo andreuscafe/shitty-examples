@@ -1,0 +1,27 @@
+.wrapper {
+  position: absolute;
+  top: 0;
+
+  display: flex;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  .item {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .title {
+      font-size: 10vw;
+      font-weight: bold;
+
+      @media screen and (max-width: 768px) {
+        font-size: 20vw;
+      }
+    }
+  }
+}
