@@ -77,7 +77,7 @@ const Pipe = ({
   })
 
   const material = useMemo(() => {
-    return new MeshStandardMaterial({ color: hover ? 'violet' : 'pink' })
+    return new MeshStandardMaterial({ color: hover ? 'lightblue' : 'orange' })
   }, [hover])
 
   return (
@@ -98,7 +98,7 @@ const Pipe = ({
       }}
     >
       <Box args={[3.001, 3.001, 1.001]} position={[0, 0, 0]}>
-        <meshBasicMaterial wireframe opacity={0.4} transparent />
+        <meshBasicMaterial wireframe opacity={0.1} transparent />
       </Box>
 
       {type == 'i' && <Box material={material} args={[3, 1, 1]}></Box>}
@@ -147,8 +147,8 @@ const Scene = () => {
       }
     >
       <OrbitControls />
-      <ambientLight intensity={0.2} />
-      <directionalLight position={[5, 10, 15]} />
+      <ambientLight intensity={0.6} />
+      <directionalLight position={[5, 10, 15]} intensity={0.4} />
 
       <Bounds fit clip damping={6} margin={1}>
         <Center>
@@ -207,7 +207,7 @@ export default function PipesGame() {
       <Canvas
         style={{ position: 'fixed' }}
         camera={{
-          position: [0, 0, 30],
+          position: [-10, 10, 30],
           fov: 20,
         }}
         shadows
