@@ -197,11 +197,8 @@ export default function PipesGame() {
   return (
     <>
       <Head>
-        <title>Art gallery | Shitty examples by @andreuscafe</title>
-        <meta
-          name="description"
-          content="3D Art gallery demo using react-three-fiber."
-        />
+        <title>Pipes Game | Shitty examples by @andreuscafe</title>
+        <meta name="description" content="3D pipes game using R3F" />
       </Head>
 
       <Canvas
