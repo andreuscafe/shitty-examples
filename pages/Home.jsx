@@ -26,12 +26,19 @@ const EXAMPLES = [
   //   githubURL:
   //     'https://github.com/andreuscafe/shitty-examples/blob/tulip/pages/examples/tulips/Tulips.jsx',
   // },
+  // {
+  //   title: 'Art gallery',
+  //   description: '3D Art gallery using R3F',
+  //   path: '/examples/art-shelf',
+  //   githubURL:
+  //     'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/art-shelf/ArtShelf.jsx',
+  // },
   {
-    title: 'Art gallery',
-    description: '3D Art gallery using R3F',
-    path: '/examples/art-shelf',
+    title: 'Pipes Game',
+    description: '3D pipes game using R3F',
+    path: '/examples/pipes-game',
     githubURL:
-      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/art-shelf/ArtShelf.jsx',
+      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/pipes-game/PipesGame.jsx',
   },
 ]
 
