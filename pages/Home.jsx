@@ -40,6 +40,13 @@ const EXAMPLES = [
     githubURL:
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/pipes-game/PipesGame.jsx',
   },
+  {
+    title: 'Mural painting',
+    description: 'Exploring image color painting',
+    path: '/examples/mural-painting',
+    githubURL:
+      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/mural-painting/MuralPainting.jsx',
+  },
 ]
 
 export default function Home() {
@@ -57,7 +64,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <wrapper className={styles.wrapper}>
+      <section className={styles.wrapper}>
         <h1 className={styles.title}>Shitty examples</h1>
 
         <div className={styles.description}>
@@ -81,7 +88,7 @@ export default function Home() {
             </Link>
           ))}
         </div>
-      </wrapper>
+      </section>
     </>
   )
 }
