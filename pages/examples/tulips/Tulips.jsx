@@ -6,9 +6,13 @@ import Head from 'next/head'
 import { useSelect } from 'rooks'
 import BorningTulip from '../../../components/tulips/BorningTulip'
 import BorningTulipBounce from '../../../components/tulips/BorningTulipBounce'
-// import IdleTulip from '../../../components/tulips/IdleTulip'
+import IdleTulip from '../../../components/tulips/IdleTulip'
 
 const TULIPS = [
+  {
+    heading: 'Idle',
+    component: <IdleTulip />,
+  },
   {
     heading: 'Borning',
     component: <BorningTulip />,
@@ -17,10 +21,6 @@ const TULIPS = [
     heading: 'Borning with bounce',
     component: <BorningTulipBounce />,
   },
-  // {
-  //   heading: 'Idle',
-  //   component: <IdleTulip />,
-  // },
 ]
 
 export default function Tulips() {
