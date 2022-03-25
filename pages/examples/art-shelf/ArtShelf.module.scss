@@ -12,12 +12,21 @@
     width: 100vw;
     height: 100vh;
     display: flex;
-    align-items: center;
+    padding: 5vw;
+    flex-direction: column;
+    align-items: end;
     justify-content: center;
+
+    @media screen and (max-width: 768px) {
+      padding: 12vh 5vw;
+      justify-content: end;
+      flex-direction: column-reverse;
+    }
 
     .title {
       font-size: 10vw;
       font-weight: bold;
+      margin: 0;
 
       @media screen and (max-width: 768px) {
         font-size: 20vw;

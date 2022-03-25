@@ -1,54 +1,56 @@
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber'
 import React, { Suspense, useEffect, useRef, useState } from 'react'
 import styles from './ArtShelf.module.scss'
-import {
-  ScrollControls,
-  Scroll,
-  SpotLight,
-  Html,
-  // OrbitControls,
-} from '@react-three/drei'
+import { SpotLight, Html, Text, OrbitControls } from '@react-three/drei'
 import Head from 'next/head'
 import useAppContext from '../../../context/AppContext'
 import useMediaQuery from '../../../hooks/useMediaQuery'
 import { TextureLoader } from 'three'
 import { EffectComposer, Noise } from '@react-three/postprocessing'
-import { lerp } from 'three/src/math/MathUtils'
+import { useArtStore } from '../../../store/artshelfStore'
+import { AnimatePresence, motion } from 'framer-motion'
+
+import { ScrollControls, Scroll, useScroll } from './ScrollControls.tsx'
 
 const ART_PIECES = [
   {
-    title: 'Paisaje',
-    imgPath: '/images/artshelf/paisaje.jpg',
+    title: 'Ruby',
+    imgPath: '/images/artshelf/ia/ruby.jpeg',
   },
   {
-    title: 'Zorrito',
-    imgPath: '/images/artshelf/zorrito.jpg',
+    title: 'Assembly',
+    imgPath: '/images/artshelf/ia/assembly.jpeg',
   },
   {
-    title: 'Condor',
-    imgPath: '/images/artshelf/condor.jpg',
+    title: 'Game',
+    imgPath: '/images/artshelf/ia/game.jpeg',
   },
   {
-    title: 'Tapir',
-    imgPath: '/images/artshelf/tapir.jpg',
+    title: 'Hacker',
+    imgPath: '/images/artshelf/ia/hacker.jpeg',
   },
   {
-    title: 'Cotorras',
-    imgPath: '/images/artshelf/cotorras.jpg',
+    title: 'Lua',
+    imgPath: '/images/artshelf/ia/lua.jpeg',
   },
   {
-    title: 'Jaguar',
-    imgPath: '/images/artshelf/jaguar.jpg',
+    title: 'Python',
+    imgPath: '/images/artshelf/ia/python.jpeg',
   },
   {
-    title: 'Llama',
-    imgPath: '/images/artshelf/llama.jpg',
+    title: 'Unreal',
+    imgPath: '/images/artshelf/ia/unreal.jpeg',
+  },
+  {
+    title: 'WebGL',
+    imgPath: '/images/artshelf/ia/webgl.jpeg',
   },
 ]
 
 // eslint-disable-next-line react/display-name
 const ImageTexture = React.forwardRef((props, ref) => {
   const { scale, url } = props
+  const { setSelectedPiece, selectedPiece } = useArtStore()
   const texture = useLoader(TextureLoader, url)
   const [hover, setHover] = useState(false)
   const { width, height } = texture.source.data
@@ -59,18 +61,34 @@ const ImageTexture = React.forwardRef((props, ref) => {
         ref={ref}
         scale={[scale, scale, 0.2]}
         castShadow
-        onPointerEnter={() => setHover(true)}
-        onPointerLeave={() => setHover(false)}
+        onPointerEnter={() => {
+          if (selectedPiece !== props.index) {
+            setHover(true)
+          }
+        }}
+        onPointerLeave={() => {
+          if (selectedPiece !== props.index) {
+            setHover(false)
+          }
+        }}
+        onClick={(e) => {
+          setSelectedPiece(props.index)
+
+          if (selectedPiece == props.index) {
+            setSelectedPiece(null)
+          }
+          e.stopPropagation()
+        }}
       >
         <boxBufferGeometry
           attach="geometry"
-          args={[width / 1000, height / 1000, 1, 1]}
+          args={[width / 800, height / 800, 1, 1]}
         />
         <meshStandardMaterial
           attach="material"
           map={texture}
           roughness={1}
-          metalness={hover ? 0.1 : 0}
+          metalness={hover ? 0 : 0.1}
         />
       </mesh>
     </group>
@@ -84,12 +102,8 @@ const ArtPiece = (props) => {
   const imageRef = useRef(null)
   const lightRef = useRef(null)
 
-  // const shelfPosition = isMobile
-  //   ? [0, -h * index - w / 2.7, 0]
-  //   : [w * index, -h * 0.35, 0]
-
   const artPosition = isMobile ? [0, -h * index, 0] : [w * index, 0, 0]
-  const lightPosition = isMobile ? [-0.5, 1.5, 3] : [0, 1.3, 3.5]
+  const lightPosition = isMobile ? [-1.5, 1.5, 3] : [-0.5, 1.5, 3.5]
 
   useEffect(() => {
     if (imageRef.current) lightRef.current.target = imageRef.current
@@ -119,6 +133,7 @@ const ArtPiece = (props) => {
           scale={isMobile ? w * 0.7 : h * 0.6}
           url={image}
           title={title}
+          index={index}
         />
         <SpotLight
           ref={lightRef}
@@ -140,25 +155,112 @@ const ArtPiece = (props) => {
   )
 }
 
-const Scene = () => {
+const CameraRig = () => {
   const isMobile = useMediaQuery('(max-width: 768px)')
-  // const { colorPreference } = useStore()
-  const { width: w, height: h } = useThree((state) => state.viewport)
-  // const canvasSize = useThree((state) => state.size)
   const cameraRots = useRef({ x: 0, y: 0 })
+  const { width: w, height: h } = useThree((state) => state.viewport)
+
+  const { selectedPiece } = useArtStore()
+
+  const scroll = useScroll()
+
+  console.log(scroll.el.style)
+
+  const scrollCurrentOffset = useRef(0)
+  const scrollCurrentFrame = useRef(0)
+
+  useEffect(() => {
+    if (selectedPiece != null) {
+      scroll.el.style.overflow = 'hidden'
+
+      scrollCurrentFrame.current = 0
+      scrollCurrentOffset.current = scroll.offset
+    } else {
+      scroll.el.style.overflow = 'hidden auto'
+
+      scrollCurrentFrame.current = 0
+
+      // scroll.offset = (1 / (ART_PIECES.length - 1)) * selectedPiece
+    }
+  }, [selectedPiece, scroll.el.style, scroll])
+
+  const lerp = (a, b, t) => {
+    return a + (b - a) * t
+  }
 
   useFrame((t) => {
-    if (!isMobile) {
-      const x = lerp(cameraRots.current.x, t.mouse.y / 30, 0.05)
-      const y = lerp(cameraRots.current.y, -t.mouse.x / 30, 0.05)
+    if (isMobile) {
+      t.camera.rotation.y = -Math.PI / 20
 
-      t.camera.rotation.x = x
-      t.camera.rotation.y = y
+      if (selectedPiece !== null) {
+        const scrollTarget = (1 / (ART_PIECES.length - 1)) * selectedPiece
 
-      cameraRots.current.x = x
-      cameraRots.current.y = y
+        scrollCurrentFrame.current += 1
+        const time = scrollCurrentFrame.current / 200
+
+        if (time <= 1) {
+          scroll.offset = lerp(scroll.offset, scrollTarget, time)
+        } else {
+          scroll.offset = scrollTarget
+        }
+
+        t.camera.position.z = lerp(t.camera.position.z, 5, 0.05)
+        t.camera.position.x = lerp(t.camera.position.x, -0.75, 0.05)
+      } else {
+        t.camera.position.z = lerp(t.camera.position.z, 14, 0.05)
+        t.camera.position.x = lerp(t.camera.position.x, -2.2, 0.05)
+      }
+    } else {
+      if (selectedPiece !== null) {
+        t.camera.position.x = lerp(t.camera.position.x, -2.5, 0.05)
+        t.camera.position.z = lerp(t.camera.position.z, 5, 0.05)
+        t.camera.rotation.y = lerp(t.camera.rotation.y, -Math.PI / 6, 0.04)
+        t.camera.rotation.x = lerp(t.camera.rotation.x, t.mouse.y / 30, 0.05)
+
+        const scrollTarget = (1 / (ART_PIECES.length - 1)) * selectedPiece
+
+        scrollCurrentFrame.current += 1
+        const time = scrollCurrentFrame.current / 100
+
+        if (time <= 1) {
+          scroll.offset = lerp(scroll.offset, scrollTarget, time)
+        } else {
+          scroll.offset = scrollTarget
+        }
+      } else {
+        t.camera.position.z = lerp(t.camera.position.z, 13, 0.05)
+
+        const rotX = lerp(t.camera.rotation.x, t.mouse.y / 30, 0.05)
+        const rotY = lerp(t.camera.rotation.y, -t.mouse.x / 30, 0.05)
+        // const rotY = lerp(t.camera.rotation.y, Math.PI / 10, 0.05)
+        const posX = lerp(t.camera.position.x, 0, 0.05)
+
+        t.camera.position.x = posX
+        t.camera.rotation.x = rotX
+        t.camera.rotation.y = rotY
+      }
     }
   })
+
+  return <></>
+}
+
+const Scene = () => {
+  const isMobile = useMediaQuery('(max-width: 768px)')
+
+  const { width: w, height: h } = useThree((state) => state.viewport)
+
+  // const canvasSize = useThree((state) => state.size)
+
+  const { selectedPiece, setSelectedPiece } = useArtStore()
+
+  useEffect(() => {
+    setSelectedPiece(null)
+
+    return () => {
+      setSelectedPiece(null)
+    }
+  }, [setSelectedPiece])
 
   return (
     <Suspense
@@ -175,8 +277,9 @@ const Scene = () => {
         distance={0.5} // A factor that increases scroll bar travel (default: 1)
         damping={2} // Friction, higher is faster (default: 4)
         horizontal={!isMobile}
-        // infinite
+        enabled={selectedPiece == null}
       >
+        <CameraRig />
         <Scroll>
           {ART_PIECES.map((piece, i) => (
             <ArtPiece
@@ -186,8 +289,6 @@ const Scene = () => {
               index={i}
             />
           ))}
-
-          {/* <Rig /> */}
           <ambientLight intensity={0.5} color={0xffccaa} />
         </Scroll>
 
@@ -195,15 +296,67 @@ const Scene = () => {
           <div className={styles.wrapper}>
             {ART_PIECES.map((piece, i) => (
               <section className={styles.item} key={i}>
-                <h1 id={piece.title} className={styles.title}>
-                  {piece.title}
-                </h1>
+                <AnimatePresence>
+                  {selectedPiece === i && (
+                    <>
+                      <motion.h1
+                        key={'title-' + i}
+                        id={piece.title}
+                        className={styles.title}
+                        initial={{
+                          opacity: 0,
+                          y: 100,
+                        }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                        }}
+                        exit={{
+                          opacity: 0,
+                          y: 100,
+                        }}
+                        transition={{
+                          type: 'spring',
+                          damping: 10,
+                          delay: 0.3,
+                        }}
+                      >
+                        {piece.title}
+                      </motion.h1>
+                      <motion.span
+                        initial={{
+                          opacity: 0,
+                          y: 100,
+                        }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                        }}
+                        exit={{
+                          opacity: 0,
+                          y: 100,
+                        }}
+                        transition={{
+                          type: 'spring',
+                          damping: 10,
+                          delay: 0.5,
+                        }}
+                      >
+                        $14.99
+                      </motion.span>
+                    </>
+                  )}
+                </AnimatePresence>
               </section>
             ))}
           </div>
         </Scroll>
 
-        <mesh position={[0, 0, -0.1]} receiveShadow>
+        <mesh
+          position={[0, 0, -0.1]}
+          receiveShadow
+          onClick={() => setSelectedPiece(null)}
+        >
           <planeGeometry args={[w * 3, h * 3]} />
           <meshStandardMaterial color={0xffffff} />
         </mesh>
@@ -238,8 +391,6 @@ export default function ArtShelf() {
       <Canvas
         style={{ position: 'fixed' }}
         camera={{
-          // position: [-4, 0, 8],
-          // rotation: [0, -Math.PI / 50, 0],
           position: [0, 0, 13],
           fov: 20,
         }}
