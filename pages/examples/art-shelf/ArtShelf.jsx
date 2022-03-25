@@ -212,7 +212,7 @@ const CameraRig = () => {
       }
     } else {
       if (selectedPiece !== null) {
-        t.camera.position.x = lerp(t.camera.position.x, -2.5, 0.05)
+        t.camera.position.x = lerp(t.camera.position.x, -2.5, 0.04)
         t.camera.position.z = lerp(t.camera.position.z, 5, 0.05)
         t.camera.rotation.y = lerp(t.camera.rotation.y, -Math.PI / 6, 0.04)
         t.camera.rotation.x = lerp(t.camera.rotation.x, t.mouse.y / 30, 0.05)
@@ -220,7 +220,7 @@ const CameraRig = () => {
         const scrollTarget = (1 / (ART_PIECES.length - 1)) * selectedPiece
 
         scrollCurrentFrame.current += 1
-        const time = scrollCurrentFrame.current / 100
+        const time = scrollCurrentFrame.current / 160
 
         if (time <= 1) {
           scroll.offset = lerp(scroll.offset, scrollTarget, time)
