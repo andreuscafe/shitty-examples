@@ -10,7 +10,11 @@ import { EffectComposer, Noise } from '@react-three/postprocessing'
 import { useArtStore } from '../../../store/artshelfStore'
 import { AnimatePresence, motion } from 'framer-motion'
 
-import { ScrollControls, Scroll, useScroll } from './ScrollControls.tsx'
+import {
+  ScrollControls,
+  Scroll,
+  useScroll,
+} from '../../../components/ScrollControls.tsx'
 
 const ART_PIECES = [
   {
