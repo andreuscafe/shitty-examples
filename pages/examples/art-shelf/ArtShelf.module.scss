@@ -16,6 +16,7 @@
     flex-direction: column;
     align-items: end;
     justify-content: center;
+    color: var(--white);
 
     @media screen and (max-width: 768px) {
       padding: 12vh 5vw;
@@ -27,6 +28,8 @@
       font-size: 10vw;
       font-weight: bold;
       margin: 0;
+      -webkit-text-stroke: 0.2rem var(--white);
+      color: transparent;
 
       @media screen and (max-width: 768px) {
         font-size: 20vw;
