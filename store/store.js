@@ -8,9 +8,15 @@ export const useStore = create(
 
       toggleColorPreference: () =>
         set((state) => {
-          const newColor = state.colorPreference == 'light' ? 'dark' : 'light'
+          return {
+            colorPreference:
+              state.colorPreference == 'light' ? 'dark' : 'light',
+          }
+        }),
 
-          return { colorPreference: newColor }
+      setColorPreference: (colorPreference) =>
+        set((state) => {
+          return { colorPreference }
         }),
     }),
     {

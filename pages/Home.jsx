@@ -47,6 +47,13 @@ const EXAMPLES = [
     githubURL:
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/mural-painting/MuralPainting.jsx',
   },
+  {
+    title: 'Stars',
+    description: 'Stars animation using framer-motion',
+    path: '/examples/stars',
+    githubURL:
+      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/stars/Stars.jsx',
+  },
 ]
 
 export default function Home() {
