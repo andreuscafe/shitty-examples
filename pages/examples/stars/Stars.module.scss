@@ -60,7 +60,7 @@
     }
     100% {
       transform: rotate(calc(var(--rot) + 0deg));
-      background-size: 200%;
+      background-size: 400%;
       opacity: 0;
     }
   }
