@@ -43,7 +43,7 @@ let animationConfig = {
   damping: 5,
 }
 
-export const Idea = ({ children }) => {
+const Idea = ({ children }) => {
   const [transformation, setTransformation] = useState(
     generateRandomTransformation()
   )
@@ -107,3 +107,5 @@ export const Idea = ({ children }) => {
     </motion.div>
   )
 }
+
+export default Idea
