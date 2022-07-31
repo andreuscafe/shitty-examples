@@ -4,8 +4,8 @@
   --white: antiquewhite;
   --black: #252525;
 
-  --foreground: var(--black);
-  --background: var(--white);
+  --foreground: var(--white);
+  --background: var(--black);
   --accent: var(--dark-green);
 }
 

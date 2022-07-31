@@ -54,6 +54,13 @@ const EXAMPLES = [
     githubURL:
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/stars/Stars.jsx',
   },
+  {
+    title: 'Ideas',
+    description: 'Ideas that never got materialized',
+    path: '/examples/ideas',
+    githubURL:
+      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/ideas/Ideas.jsx',
+  },
 ]
 
 export default function Home() {

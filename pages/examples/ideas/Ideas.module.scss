@@ -1,0 +1,40 @@
+.wrapper {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+
+  .title {
+    font-size: 6rem;
+    margin: 0 0 2rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    max-width: 300px;
+    margin: 0 0 0.5rem;
+  }
+
+  .blobsWrapper {
+    perspective: 80rem;
+    transform-style: preserve-3d;
+    opacity: 0;
+
+    animation: blur 15s ease-out 3s forwards;
+
+    @keyframes blur {
+      0% {
+        opacity: 0;
+        filter: blur(200px);
+      }
+      100% {
+        filter: blur(0px);
+        opacity: 1;
+      }
+    }
+  }
+}

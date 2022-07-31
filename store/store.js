@@ -4,7 +4,8 @@ import { persist } from 'zustand/middleware'
 export const useStore = create(
   persist(
     (set) => ({
-      colorPreference: 'light',
+      colorPreference: 'dark',
+      sound: true,
 
       toggleColorPreference: () =>
         set((state) => {
@@ -17,6 +18,11 @@ export const useStore = create(
       setColorPreference: (colorPreference) =>
         set((state) => {
           return { colorPreference }
+        }),
+
+      toggleSound: () =>
+        set((state) => {
+          return { sound: !state.sound }
         }),
     }),
     {

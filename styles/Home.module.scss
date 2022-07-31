@@ -46,6 +46,7 @@
     justify-content: center;
     flex-wrap: wrap;
     max-width: 800px;
+    gap: 2rem;
 
     @media (max-width: 600px) {
       width: 100%;
@@ -53,7 +54,6 @@
     }
 
     .card {
-      margin: 1rem;
       padding: 1.5rem;
       text-align: left;
       color: inherit;
@@ -62,6 +62,10 @@
       border-radius: 10px;
       transition: border-color 0.15s ease-in-out, transform 0.15s ease-in-out;
       max-width: 300px;
+
+      @media (max-width: 600px) {
+        width: 100%;
+      }
 
       &:hover,
       &:focus,

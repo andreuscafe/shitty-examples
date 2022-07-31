@@ -39,12 +39,16 @@
     }
   }
 
-  .toggleColorModeButton {
+  .toggleColorModeButton,
+  .toggleAudioButton {
     background: transparent;
     border: 0;
     position: absolute;
+    padding: 0;
+    height: min-content;
     top: 50%;
     right: 1em;
+    display: flex;
     transform: translateY(-50%);
     cursor: pointer;
 
@@ -52,5 +56,22 @@
       width: 30px;
       color: var(--foreground);
     }
+  }
+
+  .toggleAudioButton {
+    right: initial;
+    left: 1rem;
+  }
+
+  .sound {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 20%;
+    min-width: 150px;
+    height: 80%;
+    z-index: 1;
+    padding: 1rem;
+    transform: translateY(-50%);
   }
 }
