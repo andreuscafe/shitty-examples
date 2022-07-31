@@ -5,7 +5,7 @@ import { useAppContext } from '../../../context/AppContext'
 import Head from 'next/head'
 import { useStore } from '../../../store/store'
 import { motion } from 'framer-motion'
-import { Idea } from './components/Idea'
+import Idea from './components/Idea'
 
 export default function Ideas() {
   const { setCurrentExample } = useAppContext()
