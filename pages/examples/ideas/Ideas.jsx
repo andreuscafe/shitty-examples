@@ -25,7 +25,7 @@ export default function Ideas() {
         <title>Ideas | Shitty examples by @andreuscafe</title>
       </Head>
       <div className={styles.wrapper}>
-        <div className={styles.blobsWrapper}>
+        <div className={styles.ideasWrapper}>
           <Idea>Fácil viene, fácil se va</Idea>
           <Idea>Depabook</Idea>
           <Idea>Recuérdame</Idea>
@@ -50,7 +50,7 @@ export default function Ideas() {
             opacity: 0,
             y: 80,
             scale: 0.8,
-            transition: { duration: 6, delay: 20 },
+            transition: { duration: 6, delay: 22 },
           }}
         >
           <motion.h1
@@ -92,6 +92,33 @@ export default function Ideas() {
           >
             me ayudaron a aprender.
           </motion.p>
+          <motion.p
+            className={styles.subtitle}
+            style={{ marginTop: '3rem' }}
+            initial={{ y: 40, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              type: 'spring',
+              stiffness: 500,
+              damping: 150,
+              delay: 14,
+            }}
+          >
+            Y hoy en día revolotean por mi cabeza constantemente,
+          </motion.p>
+          <motion.p
+            className={styles.subtitle}
+            initial={{ y: 40, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              type: 'spring',
+              stiffness: 500,
+              damping: 150,
+              delay: 16,
+            }}
+          >
+            recordándome que las dejé morir.
+          </motion.p>
         </motion.div>
 
         <motion.p
@@ -107,9 +134,10 @@ export default function Ideas() {
           style={{
             marginTop: '2rem',
             fontSize: '4rem',
+            lineHeight: '4rem',
           }}
         >
-          🍻
+          Bueno,
         </motion.p>
         <motion.p
           className={styles.subtitle}
@@ -125,7 +153,7 @@ export default function Ideas() {
             marginTop: '1rem',
           }}
         >
-          Ojalá nunca se me terminen.
+          eso nomás te quería contar.
         </motion.p>
       </div>
     </>

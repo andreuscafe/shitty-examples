@@ -61,10 +61,28 @@
       border: 1px solid var(--foreground);
       border-radius: 10px;
       transition: border-color 0.15s ease-in-out, transform 0.15s ease-in-out;
-      max-width: 300px;
+      max-width: calc(50% - 1rem);
+      width: 100%;
+      flex: 1 1 100%;
+      position: relative;
+
+      &.new {
+        min-width: 100%;
+        margin-bottom: 2rem;
+      }
+
+      .newTag {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        padding: 0.4rem 0.6rem;
+        border-radius: 100px;
+        background: var(--foreground);
+        color: var(--background);
+      }
 
       @media (max-width: 600px) {
-        width: 100%;
+        max-width: 100%;
       }
 
       &:hover,

@@ -19,7 +19,11 @@
     margin: 0 0 0.5rem;
   }
 
-  .blobsWrapper {
+  .ideasWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     perspective: 80rem;
     transform-style: preserve-3d;
     opacity: 0;

@@ -6,6 +6,14 @@ import { useAppContext } from '../context/AppContext'
 
 const EXAMPLES = [
   {
+    title: 'Ideas',
+    description: 'Ideas that never got materialized',
+    path: '/examples/ideas',
+    githubURL:
+      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/ideas/Ideas.jsx',
+    new: true,
+  },
+  {
     title: 'Scroll controlled video',
     description: 'Using react-scrollmagic to set video.currentTime',
     path: '/examples/scroll-video',
@@ -54,13 +62,6 @@ const EXAMPLES = [
     githubURL:
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/stars/Stars.jsx',
   },
-  {
-    title: 'Ideas',
-    description: 'Ideas that never got materialized',
-    path: '/examples/ideas',
-    githubURL:
-      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/ideas/Ideas.jsx',
-  },
 ]
 
 export default function Home() {
@@ -95,9 +96,13 @@ export default function Home() {
         <div className={styles.grid}>
           {EXAMPLES.map((example, i) => (
             <Link href={example.path} key={i}>
-              <a className={styles.card}>
+              <a className={`${styles.card} ${example.new ? styles.new : ''}`}>
                 <h2>{example.title}</h2>
                 <p>{example.description}</p>
+
+                {example.new && (
+                  <span className={styles.newTag}>This is new!</span>
+                )}
               </a>
             </Link>
           ))}
