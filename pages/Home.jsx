@@ -6,13 +6,21 @@ import { useAppContext } from '../context/AppContext'
 
 const EXAMPLES = [
   {
-    title: 'Ideas',
-    description: 'Ideas that never got materialized',
-    path: '/examples/ideas',
+    title: 'Spline background',
+    description: 'Testing react-spline',
+    path: '/examples/spline',
     githubURL:
-      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/ideas/Ideas.jsx',
+      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/spline/SplineBackground.jsx',
     new: true,
   },
+  // {
+  //   title: 'Ideas',
+  //   description: 'Ideas that never got materialized',
+  //   path: '/examples/ideas',
+  //   githubURL:
+  //     'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/ideas/Ideas.jsx',
+  //   new: true,
+  // },
   {
     title: 'Scroll controlled video',
     description: 'Using react-scrollmagic to set video.currentTime',

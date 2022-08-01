@@ -302,6 +302,20 @@
   resolved "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.1.0.tgz"
   integrity sha512-JLo+Y592QzIE+q7Dl2pMUtt4q8SKYI5jDrZxrozEQxnGVOyYE+GWK9eLkwTaeN9DDctlaRAQ3TBmzZ1qdLE30A==
 
+"@splinetool/react-spline@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@splinetool/react-spline/-/react-spline-2.2.1.tgz#ebd9ff836a734a4f5ca0a9b83352c9c2582024b3"
+  integrity sha512-GDVYDEhYn9AjUbOWMpg2qIAtH3yYuw0itiG/lcNv5H1WZ5R3E3TjcNvyVou2td/16DW9m03N5cI/WVKGgsSFxg==
+  dependencies:
+    react-merge-refs "^1.1.0"
+
+"@splinetool/runtime@^0.9.90":
+  version "0.9.90"
+  resolved "https://registry.yarnpkg.com/@splinetool/runtime/-/runtime-0.9.90.tgz#a28452b5dbf886eeb7a5085de837b1d2b2b294ee"
+  integrity sha512-cVkCqYJKfKcsKOhVYHQnhgOFN1LzFe1mf+imr9s2J4ANBOU9HoOe1AzDrvVOdXp4ynq0YRL7nSj5MkQ9iGzMCQ==
+  dependencies:
+    on-change "^4.0.0"
+
 "@types/json5@^0.0.29":
   version "0.0.29"
   resolved "https://registry.npmjs.org/@types/json5/-/json5-0.0.29.tgz"
@@ -1689,6 +1703,11 @@ object.values@^1.1.5:
     call-bind "^1.0.2"
     define-properties "^1.1.3"
     es-abstract "^1.19.1"
+
+on-change@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/on-change/-/on-change-4.0.1.tgz#a3fea9971748efab3560351c8278ea1a692b7c16"
+  integrity sha512-Gxmr/8NsLTigoUUEPvnAIUGl7uxwfC3Mm1G+qTmODEZcT4ZGfeaFyQgfGCdbKVS2pICIFYB82RH6MUHToPcS4Q==
 
 once@^1.3.0:
   version "1.4.0"

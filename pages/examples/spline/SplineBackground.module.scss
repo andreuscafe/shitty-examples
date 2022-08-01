@@ -1,0 +1,64 @@
+.wrapper {
+  position: relative;
+  height: 100%;
+  --cubic-bezier: cubic-bezier(0, 0.58, 0.42, 0.99);
+
+  .splineWrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0;
+    animation: reveal-spline 3s 2s var(--cubic-bezier) forwards;
+
+    @keyframes reveal-spline {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0px);
+      }
+    }
+  }
+
+  .contentWrapper {
+    position: relative;
+    pointer-events: none;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 5vw;
+    min-height: 100%;
+
+    .title {
+      font-size: 6vw;
+      line-height: 100%;
+      font-weight: bold;
+      margin: 0;
+
+      @media screen and (max-width: 768px) {
+        font-size: 14vw;
+      }
+
+      .titleSpan {
+        --delay: 1s;
+        display: inline-block;
+        opacity: 0;
+        animation: reveal 1s var(--delay) var(--cubic-bezier) forwards;
+
+        @keyframes reveal {
+          0% {
+            opacity: 0;
+            transform: translateY(40px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0px);
+          }
+        }
+      }
+    }
+  }
+}
