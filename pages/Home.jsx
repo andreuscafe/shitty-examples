@@ -7,7 +7,7 @@ import { useAppContext } from '../context/AppContext'
 const EXAMPLES = [
   {
     title: 'Spline background',
-    description: 'Testing react-spline',
+    description: 'Testing react-spline (high gpu use)',
     path: '/examples/spline',
     githubURL:
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/spline/SplineBackground.jsx',
@@ -77,6 +77,9 @@ export default function Home() {
 
   useEffect(() => {
     setCurrentExample({})
+    document.body.style.overflow = 'auto'
+    document.body.style.backgroundColor = 'var(--background)'
+    document.body.style.color = 'var(--foreground)'
   }, [setCurrentExample])
 
   return (

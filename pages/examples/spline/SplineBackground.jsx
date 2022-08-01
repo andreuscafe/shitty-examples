@@ -30,6 +30,7 @@ export default function SplineBackground() {
     })
     document.body.style.overflow = 'hidden'
     document.body.style.backgroundColor = '#000000'
+    document.body.style.color = '#ffffff'
 
     return () => (document.body.style.overflow = 'auto')
   }, [setCurrentExample])
