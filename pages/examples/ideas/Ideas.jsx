@@ -42,6 +42,7 @@ export default function Ideas() {
           <Idea>Razones para permanecer dormido</Idea>
           <Idea>Brisa</Idea>
           <Idea>Stickersby.me</Idea>
+          <Idea>Blockets</Idea>
         </div>
 
         <motion.div
