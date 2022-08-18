@@ -26,7 +26,7 @@ export default function SplineBackground() {
   useEffect(() => {
     setCurrentExample({
       title: 'Spline',
-      url: 'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/mural-painting/SplineBackground.jsx',
+      url: 'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/spline/SplineBackground.jsx',
     })
     document.body.style.overflow = 'hidden'
     document.body.style.backgroundColor = '#000000'
