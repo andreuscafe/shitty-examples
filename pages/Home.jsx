@@ -13,14 +13,13 @@ const EXAMPLES = [
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/spline/SplineBackground.jsx',
     new: true,
   },
-  // {
-  //   title: 'Ideas',
-  //   description: 'Ideas that never got materialized',
-  //   path: '/examples/ideas',
-  //   githubURL:
-  //     'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/ideas/Ideas.jsx',
-  //   new: true,
-  // },
+  {
+    title: 'Ideas',
+    description: 'Ideas that never got materialized',
+    path: '/examples/ideas',
+    githubURL:
+      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/ideas/Ideas.jsx',
+  },
   {
     title: 'Scroll controlled video',
     description: 'Using react-scrollmagic to set video.currentTime',
