@@ -13,12 +13,19 @@ const EXAMPLES = [
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/spline/SplineBackground.jsx',
     new: true,
   },
+  // {
+  //   title: 'Ideas',
+  //   description: 'Ideas that never got materialized',
+  //   path: '/examples/ideas',
+  //   githubURL:
+  //     'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/ideas/Ideas.jsx',
+  // },
   {
-    title: 'Ideas',
-    description: 'Ideas that never got materialized',
-    path: '/examples/ideas',
+    title: 'Globe',
+    description: 'Threejs Globe',
+    path: '/examples/globe',
     githubURL:
-      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/ideas/Ideas.jsx',
+      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/globe/index.jsx',
   },
   {
     title: 'Scroll controlled video',
