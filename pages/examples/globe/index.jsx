@@ -15,7 +15,7 @@ function Globe() {
   useEffect(() => {
     setCurrentExample({
       title: 'Globe',
-      url: 'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/globe/Globe.jsx',
+      url: 'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/globe/index.jsx',
     })
   }, [setCurrentExample])
 
