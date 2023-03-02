@@ -29,18 +29,6 @@ a {
   box-sizing: border-box;
 }
 
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-a,
-span,
-div {
-  transition: color 0.15s ease-in-out;
-}
-
 ::-webkit-scrollbar {
   width: 0; /* Remove scrollbar space */
   background: transparent; /* Optional: just make scrollbar invisible */

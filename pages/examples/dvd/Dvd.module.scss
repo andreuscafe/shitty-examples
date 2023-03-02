@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.dvdWrapper {
+  width: 100%;
+  height: 100%;
+
+  .dvd {
+    width: 25vmax;
+    height: 10vmax;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 5vmax;
+    font-style: italic;
+
+    svg {
+      width: 50%;
+    }
+  }
+}

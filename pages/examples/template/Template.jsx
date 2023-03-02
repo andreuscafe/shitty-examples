@@ -16,7 +16,7 @@ export default function Template() {
   return (
     <>
       <Head>
-        <title>Spline Background | Shitty examples by @andreuscafe</title>
+        <title>Template | Shitty examples by @andreuscafe</title>
       </Head>
       <div className={styles.wrapper}>
         <h1>Template</h1>

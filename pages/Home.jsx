@@ -6,12 +6,19 @@ import { useAppContext } from '../context/AppContext'
 
 const EXAMPLES = [
   {
+    title: 'DVD',
+    description: 'Just a DVD logo bouncing around',
+    path: '/examples/dvd',
+    githubURL:
+      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/dvd/Dvd.jsx',
+    new: true,
+  },
+  {
     title: 'Spline background',
     description: 'Testing react-spline (high gpu use)',
     path: '/examples/spline',
     githubURL:
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/spline/SplineBackground.jsx',
-    new: true,
   },
   // {
   //   title: 'Ideas',
