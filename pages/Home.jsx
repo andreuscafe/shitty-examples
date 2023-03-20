@@ -6,12 +6,20 @@ import { useAppContext } from '../context/AppContext'
 
 const EXAMPLES = [
   {
+    title: 'Scroll Reveal Content',
+    description: 'Using framer-motion',
+    path: '/examples/scroll-reveal-content',
+    githubURL:
+      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/scroll-reveal-content/ScrollReveal.jsx',
+    new: true,
+  },
+  {
     title: 'DVD',
     description: 'Just a DVD logo bouncing around',
     path: '/examples/dvd',
     githubURL:
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/dvd/Dvd.jsx',
-    new: true,
+    new: false,
   },
   {
     title: 'Spline background',
