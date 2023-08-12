@@ -10,9 +10,11 @@ import testVertexShader from './shaders/test/vertex.glsl'
 import testFragmentShader from './shaders/test/fragment.glsl'
 import { useLayoutEffect } from 'react'
 import { useRef } from 'react'
+import { useStore } from '../../../store/store'
 
 export default function MuralPainting() {
   const { setCurrentExample } = useAppContext()
+  const { setColorPreference } = useStore.getState()
 
   useEffect(() => {
     setCurrentExample({
@@ -21,8 +23,10 @@ export default function MuralPainting() {
     })
     document.body.style.overflow = 'hidden'
 
+    setColorPreference('light')
+
     return () => (document.body.style.overflow = 'auto')
-  }, [setCurrentExample])
+  }, [setCurrentExample, setColorPreference])
 
   return (
     <>
