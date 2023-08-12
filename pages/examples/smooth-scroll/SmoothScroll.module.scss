@@ -1,0 +1,24 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+
+  .line {
+    $duration: 4s;
+    $dasharray: 30px;
+    stroke-dasharray: $dasharray 10px;
+    animation: stroke $duration linear infinite forwards;
+
+    @keyframes stroke {
+      to {
+        stroke-dashoffset: $dasharray * 2 + 20;
+      }
+    }
+
+    &.reverse {
+      animation-direction: reverse;
+    }
+  }
+}

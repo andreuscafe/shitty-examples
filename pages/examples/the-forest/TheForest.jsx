@@ -133,7 +133,7 @@ export default function TheForest() {
             damping={4} // Friction, higher is faster (default: 4)
             horizontal
           >
-            <Environment preset={'dawn'} />
+            {/* <Environment preset={'dawn'} /> */}
 
             <Scroll>
               <MergedTrees />

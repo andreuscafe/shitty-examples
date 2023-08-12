@@ -6,13 +6,21 @@ import { useAppContext } from '../context/AppContext'
 
 const EXAMPLES = [
   {
-    title: 'Scroll Reveal Content',
-    description: 'Using framer-motion',
-    path: '/examples/scroll-reveal-content',
+    title: 'First take on shaders',
+    description: 'Using ThreeJS and R3F',
+    path: '/examples/simple-shader',
     githubURL:
-      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/scroll-reveal-content/ScrollReveal.jsx',
+      'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/simple-shader/SimpleShader.jsx',
     new: true,
   },
+  // {
+  //   title: 'Scroll Reveal Content',
+  //   description: 'Using framer-motion',
+  //   path: '/examples/scroll-reveal-content',
+  //   githubURL:
+  //     'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/scroll-reveal-content/ScrollReveal.jsx',
+  //   new: false,
+  // },
   {
     title: 'DVD',
     description: 'Just a DVD logo bouncing around',
@@ -36,8 +44,8 @@ const EXAMPLES = [
   //     'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/ideas/Ideas.jsx',
   // },
   {
-    title: 'Globe',
-    description: 'Threejs Globe',
+    title: '3D Globe',
+    description: 'Trying Threejs Globe',
     path: '/examples/globe',
     githubURL:
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/globe/index.jsx',
@@ -55,14 +63,15 @@ const EXAMPLES = [
     path: '/examples/the-forest',
     githubURL:
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/the-forest/TheForest.jsx',
+    notWorking: true,
   },
-  // {
-  //   title: 'Tulip animations',
-  //   description: 'SVG animations using framer-motion',
-  //   path: '/examples/tulips',
-  //   githubURL:
-  //     'https://github.com/andreuscafe/shitty-examples/blob/tulip/pages/examples/tulips/Tulips.jsx',
-  // },
+  {
+    title: 'Tulip animations',
+    description: 'SVG animations using framer-motion',
+    path: '/examples/tulips',
+    githubURL:
+      'https://github.com/andreuscafe/shitty-examples/blob/tulip/pages/examples/tulips/Tulips.jsx',
+  },
   {
     title: 'Art gallery',
     description: '3D Art gallery using R3F',
@@ -78,11 +87,12 @@ const EXAMPLES = [
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/pipes-game/PipesGame.jsx',
   },
   {
-    title: 'Mural painting',
-    description: 'Exploring image color painting',
+    title: 'Canvas painting',
+    description: 'Exploring color painting using canvas',
     path: '/examples/mural-painting',
     githubURL:
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/mural-painting/MuralPainting.jsx',
+    wip: true,
   },
   {
     title: 'Stars',
@@ -91,6 +101,13 @@ const EXAMPLES = [
     githubURL:
       'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/stars/Stars.jsx',
   },
+  // {
+  //   title: 'Smooth Scroll',
+  //   description: 'Trying to make accessible smooth scroll',
+  //   path: '/examples/smooth-scroll',
+  //   githubURL:
+  //     'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/smooth-scroll/SmoothScroll.jsx',
+  // },
 ]
 
 export default function Home() {
@@ -127,7 +144,7 @@ export default function Home() {
 
         <div className={styles.grid}>
           {EXAMPLES.map((example, i) => (
-            <Link href={example.path} key={i}>
+            <Link href={example.path} key={i} legacyBehavior>
               <a className={`${styles.card} ${example.new ? styles.new : ''}`}>
                 <h2>{example.title}</h2>
                 <p>{example.description}</p>
@@ -135,6 +152,10 @@ export default function Home() {
                 {example.new && (
                   <span className={styles.newTag}>This is new!</span>
                 )}
+                {example.notWorking && (
+                  <span className={styles.newTag}>Not working</span>
+                )}
+                {example.wip && <span className={styles.newTag}>WIP</span>}
               </a>
             </Link>
           ))}
