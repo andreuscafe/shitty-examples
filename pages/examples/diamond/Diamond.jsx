@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import styles from './SimpleShader.module.scss'
+import styles from './Diamond.module.scss'
 import Head from 'next/head'
 import useAppContext from '../../../context/AppContext'
 import { Canvas, useFrame } from '@react-three/fiber'
@@ -11,19 +11,20 @@ import testFragmentShader from './shaders/test/fragment.glsl'
 import { useLayoutEffect } from 'react'
 import { useRef } from 'react'
 import { useStore } from '../../../store/store'
+import { DiamondModel } from './DiamondModel'
 
-export default function SimpleShader() {
+export default function DiamondPage() {
   const { setCurrentExample } = useAppContext()
   const { setColorPreference } = useStore.getState()
 
   useEffect(() => {
     setCurrentExample({
-      title: 'Simple shader',
-      url: 'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/simple-shader/SimpleShader.jsx',
+      title: 'Diamond',
+      url: 'https://github.com/andreuscafe/shitty-examples/blob/main/pages/examples/diamond/Diamond.jsx',
     })
     document.body.style.overflow = 'hidden'
 
-    setColorPreference('light')
+    setColorPreference('dark')
 
     return () => (document.body.style.overflow = 'auto')
   }, [setCurrentExample, setColorPreference])
@@ -35,22 +36,25 @@ export default function SimpleShader() {
       </Head>
       <div className="relative h-full flex items-center justify-center p-8">
         <Canvas className="!fixed !w-screen !h-screen top-0 left-0 z-10">
-          <Wave />
-          {/* <OrbitControls /> */}
+          <DiamondModel position={[0, 0.5, 0]} />
+          {/* <DiamondModel position={[0.5, 0, 0.5]} /> */}
+          <OrbitControls position={[0, 10, 10]} />
           <PerspectiveCamera
             makeDefault
-            position={[0.25, -3, 0.4]}
-            rotation={[Math.PI / 2, 0.3, 0.4]}
+            position={[10, 0, 0]}
+            rotation={[0, 0, 0]}
           />
         </Canvas>
 
-        <h1 className="text-2xl lg:text-6xl z-20 text-center">Hola mundo</h1>
+        <h1 className="text-2xl lg:text-6xl z-20 text-center mt-40">
+          Jewel of Soul
+        </h1>
       </div>
     </>
   )
 }
 
-const Wave = () => {
+const Diamond = () => {
   const geoRef = useRef(null)
   const matRef = useRef(null)
 
